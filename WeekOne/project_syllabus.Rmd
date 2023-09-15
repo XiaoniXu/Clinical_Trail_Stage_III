@@ -7,11 +7,11 @@ knit: (function(inputFile, encoding) {
 title: "Project Syllabus"
 subtitle: "Data Science and Analytics"
 author: |
-  | Author: Loan Robinson
-  | [Youtube: https://www.youtube.com/@rshiny_with_loan](https://www.youtube.com/@rshiny_with_loan)
-  | [Website: https://loankimrobinson.com/](https://loankimrobinson.com/)
-  | [Github: https://github.com/loankimrobinson/rshiny_with_Loan](https://github.com/loankimrobinson/rshiny_with_Loan)
-  | [LinkedIn: https://www.linkedin.com/in/loan-robinson-86776994/](https://www.linkedin.com/in/loan-robinson-86776994/)
+  | Author: Xiaoni Xu
+  | [Youtube: N/A]
+  | [Website: N/A]
+  | [Github: https://github.com/XiaoniXu]
+  | [LinkedIn: https://www.linkedin.com/in/xiaoni-xu-275a21172/]
 date: "`r Sys.Date()`"
 toc-title: "Table of Contents"
 output:
