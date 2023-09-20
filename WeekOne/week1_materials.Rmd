@@ -887,6 +887,3 @@ display.brewer.all(colorblindFriendly = TRUE)
 
 ![](pics/data-visualization.pdf){width=80% height=1000px}
 
-
-
-<br>
