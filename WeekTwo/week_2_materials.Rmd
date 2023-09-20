@@ -1,0 +1,463 @@
+---
+knit: (function(inputFile, encoding) { 
+      out_dir <- file.path(getwd());
+      rmarkdown::render(inputFile,
+                        encoding=encoding, 
+                        output_file = file.path(out_dir , 'Week2_material_homework.html'))})
+title: "Week 2 Materials and Homeworks"
+subtitle: "Clinical Study Details and Understanding the data"
+author: |
+  | [Youtube: https://www.youtube.com/@rshiny_with_loan](https://www.youtube.com/@rshiny_with_loan)
+  | [Website: https://loankimrobinson.com/](https://loankimrobinson.com/)
+  | [Github: https://github.com/loankimrobinson/rshiny_with_Loan](https://github.com/loankimrobinson/rshiny_with_Loan)
+  | [LinkedIn: https://www.linkedin.com/in/loan-robinson-86776994/](https://www.linkedin.com/in/loan-robinson-86776994/)
+date: "`r Sys.Date()`"
+toc-title: "Table of Contents"
+output:
+  html_document:
+    include:
+      after_body: after.html
+    self_contained: no
+    toc: yes
+    toc_depth: 4
+    toc_float: true
+    toc_collapsed: true
+    number_sections: false
+    theme: cerulean
+    highlight: zenburn
+    template: toc2.html
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
+indent: yes
+params:
+  github: loankimrobinson
+  author: Loan Robinson
+  email: loankimrobinson@gmail.com
+  twitter: rshiny_with_loan
+  linkedin: loan-robinson-86776994
+  youtube: rshiny_with_loan
+---
+
+
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+options(reactable.static = TRUE)
+library(ggpubr)
+library(ggplot2)
+library(RColorBrewer) 
+library(reactable)
+library(reactablefmtr)
+library(htmltools)
+library(dplyr)
+library(fontawesome)
+library(DT)
+library(klippy) # remotes::install_github("rlesur/klippy")
+# renv::settings$snapshot.type("all")
+# renv::snapshot()
+library(arsenal)  #  install.packages("arsenal")
+```
+
+
+```{r klippy, echo=FALSE, include=TRUE, warning= FALSE, message=FALSE}
+
+
+# Add copy to clibboard
+klippy::klippy(
+  lang = c("r", "markdown"),
+  all_precode = TRUE,
+  position = c("top", "right"),
+  color = "white",
+  tooltip_message = "Click to copy",
+  tooltip_success = "Copied!"
+)
+
+tf <- tempfile(fileext = c(".Rmd", ".html"))
+writeLines(
+  c("```{r klippy, echo=FALSE, include=TRUE}",
+    "klippy::klippy()",
+    "```",
+    "Insert this chunk in your `Rmd` file:",
+    "````markdown",
+    "`r ''````{r klippy, echo=FALSE, include=TRUE}",
+    "klippy::klippy()",
+    "```",
+    "````"
+  ),
+  tf[1]
+)
+
+if (FALSE) {
+rmarkdown::render(tf[1], "html_document", tf[2])
+browseURL(paste0("file://", tf[2]))}
+```
+
+
+```{r setup-footer, include=FALSE}
+# https://stackoverflow.com/questions/71621136/rmarkdown-yaml-section-add-authors-hyperlink-email-to-footer
+knitr::opts_chunk$set(echo = TRUE)
+
+writeLines(
+  sprintf(
+    '&nbsp;
+    <h5 style="text-align: center;color:#465362;"> Thank you for reading </h5>
+    <hr style="height:2px;border-width:0;color:#184558;background-color:#184558">
+    <div class="footer">
+    <p style="text-align: center;">R Shiny with <a href="https://github.com/%s/">%s</a></p>
+    <p style="text-align: center;"><span style="color: #808080;"><em><a href="mailto:%s">%s</a></em></span></p>
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- Add font awesome icons -->
+    <p style="text-align: center;">
+      <a href="https://twitter.com/%s?lang=en" class="fa fa-twitter"></a>
+      <a href="https://www.linkedin.com/in/%s/" class="fa fa-linkedin"></a>
+      <a href="https://github.com/%s/" class="fa fa-github"></a>
+      <a href="https://youtube.com/@%s/" class="fa fa-youtube"></a>
+    </p>
+    </div>
+    &nbsp;',
+    params$github,
+    params$author,
+    params$email,
+    params$email,
+    params$twitter,
+    params$linkedin,
+    params$github,
+    params$youtube
+  ),
+  'after.html'
+)
+```
+
+
+```{css ref.label="styles", echo=FALSE}
+
+```
+
+
+```{css ref.label="pkgdown_styles", echo=FALSE}
+```
+
+
+```{css styles, eval=FALSE, include = FALSE}
+/*https://www.w3.org/Style/Examples/007/fonts.en.html*/
+.author {font-size: 15px;font-family: "American Typewriter", serif;color:black;}
+.title {font-family: "Apple Chancery", cursive; font-size: 35px;font-weight:bold;}
+.date {font-family: "American Typewriter", serif; font-size: 20px;font-weight:bold;}
+.subtitle {font-family: "American Typewriter", serif; font-size: 20px;font-weight:bold;}
+h3 {font-family: "American Typewriter", serif; font-size: 20px;font-weight:bold;}
+h4 {font-family: "American Typewriter", serif; font-size: 18px;font-weight:bold;}
+h5 {font-family: "American Typewriter", serif; font-size: 18px;font-weight:bold; color:#9F2B68;}
+p {font-family: "American Typewriter", serif;font-size: 14px;}
+
+
+.header {
+  border-bottom-color: #555;
+  font-size: 1.5rem;
+  font-weight: 700;
+  /*text-transform: uppercase;*/
+  color:#465362; 
+}
+/* Highlight headers when sorting */
+.header:hover,
+.header:focus,
+.header[aria-sort="ascending"],
+.header[aria-sort="descending"] {
+  background-color: #eee;
+}
+
+.manufacturer {
+  display: flex;
+  align-items: center;
+}
+.manufacturer-logo {
+  height: 2rem;
+  width: 4rem;
+  border: 1px solid #f0f0f0;
+}
+.manufacturer-name {
+  margin-left: 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color:#465362; 
+}
+.manufacturer-origin {
+  margin-left: 0.35rem;
+  color: hsl(0, 0%, 45%);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+a {color:#9F2B68;font-weight:normal}
+
+body, td {
+   font-size: 14px;
+}
+code.r{
+  font-size: 16px;
+}
+pre {
+  font-size: 16px
+}
+
+```
+
+
+```{css pkgdown_styles, include=FALSE}
+
+/* pkgdown articles */
+.row > main {
+  max-width: 1800px;
+}
+.page-header {
+  display: none;
+}
+/* rmarkdown html documents */
+.main-container {
+  max-width: 1600px !important;
+  margin-left: 80px;
+  margin-right: 80px;
+  color:#184558;
+  font-family: "American Typewriter", serif; 
+  font-size: 15px;
+}
+```
+
+
+# Introduction {.tabset}
+
+## Abstract
+
+1. Objective
+
+  In a phase 2 study, pimavanserin demonstrated efficacy as adjunctive treatment for major depressive disorder (MDD). Subsequently, two phase 3 studies (NCT03968159 in the US; NCT03999918 in Europe) were initiated to examine the efficacy and safety of adjunctive pimavanserin in subjects with MDD and inadequate response to antidepressant treatment. Studies were combined with a prespecified statistical analysis plan owing to recruitment challenges related to the COVID-19 pandemic.
+
+2. Experimental design
+
+  The randomized, double-blind studies enrolled 298 patients with MDD and inadequate response to current antidepressants. Patients were randomly assigned 1:1 to pimavanserin or placebo added to current antidepressant for 6 weeks. Primary endpoint was change from baseline to week 5 in the Hamilton Rating Scale for Depression, 17-item version (HAM-D-17).
+
+3. Principal observations
+
+  There was no effect of pimavanserin in change from baseline to week 5 in the HAM-D-17 (pimavanserin [n = 138]: least-squares mean [LSM] [standard error {SE}], -9.0 [0.58]; placebo [n = 135]: -8.1 [0.58]; mixed-effects model for repeated measures LSM [SE] difference, -0.9 [0.82], P = 0.2956). Nominal improvement with pimavanserin was observed on 2 secondary endpoints: Clinical Global Impressions-Severity scale, Karolinska Sleepiness Scale. Treatment-emergent adverse events occurred in 58.1% of pimavanserin-treated and 54.7% of placebo-treated patients.
+
+4. Conclusions
+
+  Adjunctive pimavanserin did not significantly improve depressive symptoms, although pimavanserin was well tolerated.
+
+
+## Study Overview
+
+1. Brief Summary: 
+
+  To evaluate the efficacy and safety of adjunctive pimavanserin compared to placebo in subjects with major depressive disorder who have an inadequate response to antidepressant therapy
+
+2. Detailed Description:
+
+  Two separate studies, idential in design, were planned and initiated under 2 protocol IDs and NCTs, i.e. study ACP-103-54 (NCT03999918) and ACP-103-059 (NCT03968159). In March 2020, recruitment of new patients was paused due to the emerging coronavirus disease 2019 (COVID-19) pandemic. At that point in time, about half of the planned patients had been randomized. The Sponsor decided to combine the 2 identically designed trials, with a prespecified combined statistical analysis plan. As a result, both trials were closed and proceeded with database lock and statistical analysis of the combined data. No further patients were enrolled.
+
+This entry now includes the combined data of studies ACP-103-054 and ACP-103-059.
+
+3. Research Study: 
+
+  Phase 3, Multicenter, Randomized, Double-blind, Placebo-controlled Study to Evaluate the Efficacy and Safety of Adjunctive Pimavanserin in Subjects With Major Depressive Disorder and Inadequate Response to Antidepressant Treatment (ACP-103-054/059)
+
+4. INTERVENTION / TREATMENT 
+
+  *Drug: Pimavanserin
+  
+  *Drug: Placebo
+
+## Eligibility Criteria
+
+### Inclusion Criteria:
+
+  Adult patients, aged 18 years and above
+  A clinical diagnosis of major depressive disorder (MDD)
+  Is being treated with one of the following SSRI or SNRI antidepressants:
+
+    Citalopram
+    Escitalopram
+    Paroxetine
+    Fluoxetine
+    Sertraline
+    Duloxetine
+    Venlafaxine
+    Desvenlafaxine
+    Venlafaxine XR
+    
+Inadequate response to SSRI/SNRI antidepressant treatment is confirmed
+If the subject is female, she must not be pregnant or breastfeeding. She must also be of non-childbearing potential OR must agree to use acceptable methods of contraception
+
+### Exclusion Criteria:
+
+Has a history of psychotic disorder or is currently being treated or requires treatment for post-traumatic stress disorder, acute stress disorder, panic disorder, or obsessive compulsive disorder
+
+Has current evidence of delirium or an unstable neurological, cardiovascular, respiratory, gastrointestinal, renal, hepatic, hematologic, or other medical disorder, including cancer or malignancies that would affect the patient's ability to participate in the program
+Has a known history or symptoms of long QT syndrome
+
+Is determined to be inappropriate for the study for any reason? 
+
+Additional inclusion/exclusion criteria apply. Patients will be evaluated at screening to ensure that all criteria for study participation are met. Patients may be excluded from the study based on these assessments (and specifically, if it is determined that their baseline health and psychiatric condition do not meet all pre-specified entry criteria).
+
+## Study Plan
+
+### DESIGN DETAILS
+
+  1. Primary Purpose: Treatment
+  2. Allocation: Randomized
+  3. Interventional Model: Parallel Assignment
+  4. Masking: Quadruple (ParticipantCare ProviderInvestigatorOutcomes Assessor)
+
+### ARMS AND INTERVENTIONS
+
+1. Experimental: Drug - pimavanserin GROUP
+
+  * Drug: Pimavanserin
+
+  Pimavanserin 34 mg (provided as 2×17 mg tablets) administered orally as a single dose once daily
+
+2. Placebo Comparator: Placebo GROUP
+
+  * Drug: Placebo
+
+  Placebo (2×placebo tablets [size- and color-matched to pimavanserin]) administered orally as a single dose once daily
+
+### What is study measuring?
+
+1. PRIMARY OUTCOME MEASURES
+
+  a. Outcome Measure
+  
+  Change From Baseline to Week 5 in Hamilton Depression Scale (17 Items) (HAMD-17) Total Score
+  Source: http://www.npcrc.org/files/news/hamilton_depression_scale.pdf
+  
+  b. Measure Description
+  
+  The HAMD-17 consists of 8 items with a score on a 3 point scale and 9 items with a score on a 5 point scale. The total score ranging from 0 to 52 will be calculated as the sum of the scores for all 17 items. Higher total scores denote more severe depression.
+  
+  c. Time Frame
+
+  Baseline, Week 5
+
+
+2. SECONDARY OUTCOME MEASURES
+
+
+  a. Outcome Measure
+  
+  * Change From Baseline to Week 5 in Clinical Global Impression-Severity (CGI-S) Score for Depressive Symptoms
+  
+  * Change From Baseline to Week 5 in Sheehan Disability Scale (SDS) Score
+  
+  * Change From Baseline to Week 5 in the Changes in Sexual Functioning Questionnaire Short Form
+  
+  b. Measure Description
+  
+  * The CGI-S rates the severity of a subject's depression over the past 7 days and the score ranges from 1 to 7. Higher CGI-S scores denote more severe depression.
+  
+  * The SDS is a 3-item subject-facing questionnaire used to evaluate impairments in the domains of work, social life/leisure, and family life/home responsibility. Subjects rate each item using an 11-point scale ranging from 0 (not at all) to 10 (extremely). Higher scores denote greater disability.
+  
+  * The CSFQ-14 is a 14-item version of the CSFQ. This is a patient-facing questionnaire, with a male version and a female version. The total score ranging from 14 to 70 will be calculated as the sum of the scores for all 14 items. Higher total scores denote better sexual functioning.
+  
+  c. Time Frame
+  
+  Baseline, 5 weeks
+  
+# Simulation Data {.tabset} 
+
+## Summary
+
+1. List all files in `data` directory
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+path <- "../data"
+ls_file <- list.files(path, pattern = ".csv")
+ls_file
+```
+
+2. Read all files at once
+
+* Initial a list `vector("list", length = length(ls_file))`, which stores all files.
+
+* Using `lapply` to read all files
+
+* Set the name of the list `names(ls_file_out) <- gsub("\\..*","",ls_file)`
+
+* Access the file by `ls_file_out[[1]]` or `ls_file_out$adsl`
+
+* Add all files to the global environment `list2env(ls_file_out, envir=.GlobalEnv)`. If you want to access data, just call name of data `adsl`, `adae`, etc. 
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+# Initial a list
+ls_file_out <- vector("list", length = length(ls_file))
+
+# Reading all of files which under the name ls_file
+ls_file_out <- lapply(ls_file, function(i) read.csv(paste0(path,"/",i)))
+
+# Set the name of the list
+names(ls_file_out) <- gsub("\\..*","",ls_file)
+
+# Add all files in the global enviroment
+list2env(ls_file_out, envir=.GlobalEnv)
+
+# Quick check
+
+# dplyr::glimpse(ls_file_out[[1]])
+#dplyr::glimpse(ls_file_out$adsl)
+```
+
+3. Summary data
+
+* Quick summary `adsl`
+
+* Practice plots
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+library(arsenal)
+keep <- c("STUDYID", "AGE" , "AGE" , "AGEGR1", "SEX" , "RACE","ETHNIC", "ENRLFL")
+dt_adsl <- ls_file_out$adsl[ ,names(ls_file_out$adsl) %in% keep ]
+table_one <- arsenal::tableby(STUDYID ~ ., data = dt_adsl)
+knitr::kable(summary(table_one, title = "Summary adsl Data"))
+```
+
+
+
+
+## Checking
+
+
+## Explore
+
+
+## Visualization
+
+
+# Homework {.tabset}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>

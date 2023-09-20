@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2023-09-06" />
+
+<title>Week 2 Materials and Homeworks</title>
+
+<script src="Week2_material_homework_files/header-attrs-2.24/header-attrs.js"></script>
+<script src="Week2_material_homework_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="Week2_material_homework_files/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="Week2_material_homework_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="Week2_material_homework_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="Week2_material_homework_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="Week2_material_homework_files/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="Week2_material_homework_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="Week2_material_homework_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="Week2_material_homework_files/navigation-1.1/tabsets.js"></script>
+<script src="Week2_material_homework_files/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="Week2_material_homework_files/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="Week2_material_homework_files/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="Week2_material_homework_files/klippy-0.0.0.9500/js/klippy.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<h2 id="toc-title">Table of Contents</h2>
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Week 2 Materials and Homeworks</h1>
+<h3 class="subtitle">Clinical Study Details and Understanding the
+data</h3>
+<h4 class="author"><div class="line-block"><a
+href="https://www.youtube.com/@rshiny_with_loan">Youtube:
+https://www.youtube.com/<span
+class="citation">@rshiny_with_loan</span></a><br />
+<a href="https://loankimrobinson.com/">Website:
+https://loankimrobinson.com/</a><br />
+<a href="https://github.com/loankimrobinson/rshiny_with_Loan">Github:
+https://github.com/loankimrobinson/rshiny_with_Loan</a><br />
+<a href="https://www.linkedin.com/in/loan-robinson-86776994/">LinkedIn:
+https://www.linkedin.com/in/loan-robinson-86776994/</a></div></h4>
+<h4 class="date">2023-09-06</h4>
+
+</div>
+
+<div id="TOC">
+<h3 id="toc-title">Table of Contents</h3>
+<ul>
+<li><a href="#introduction" id="toc-introduction">Introduction</a>
+<ul>
+<li><a href="#abstract" id="toc-abstract">Abstract</a></li>
+<li><a href="#study-overview" id="toc-study-overview">Study
+Overview</a></li>
+<li><a href="#eligibility-criteria"
+id="toc-eligibility-criteria">Eligibility Criteria</a>
+<ul>
+<li><a href="#inclusion-criteria" id="toc-inclusion-criteria">Inclusion
+Criteria:</a></li>
+<li><a href="#exclusion-criteria" id="toc-exclusion-criteria">Exclusion
+Criteria:</a></li>
+</ul></li>
+<li><a href="#study-plan" id="toc-study-plan">Study Plan</a>
+<ul>
+<li><a href="#design-details" id="toc-design-details">DESIGN
+DETAILS</a></li>
+<li><a href="#arms-and-interventions"
+id="toc-arms-and-interventions">ARMS AND INTERVENTIONS</a></li>
+<li><a href="#what-is-study-measuring"
+id="toc-what-is-study-measuring">What is study measuring?</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#simulation-data" id="toc-simulation-data">Simulation
+Data</a>
+<ul>
+<li><a href="#summary" id="toc-summary">Summary</a></li>
+<li><a href="#checking" id="toc-checking">Checking</a></li>
+<li><a href="#explore" id="toc-explore">Explore</a></li>
+<li><a href="#visualization"
+id="toc-visualization">Visualization</a></li>
+</ul></li>
+<li><a href="#homework" id="toc-homework">Homework</a></li>
+</ul>
+</div>
+
+<script>
+  addClassKlippyToPreCode();
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', '#FFFFFF', '1', 'Click to copy', 'Copied!');
+</script>
+<style type="text/css">
+/*https://www.w3.org/Style/Examples/007/fonts.en.html*/
+.author {font-size: 15px;font-family: "American Typewriter", serif;color:black;}
+.title {font-family: "Apple Chancery", cursive; font-size: 35px;font-weight:bold;}
+.date {font-family: "American Typewriter", serif; font-size: 20px;font-weight:bold;}
+.subtitle {font-family: "American Typewriter", serif; font-size: 20px;font-weight:bold;}
+h3 {font-family: "American Typewriter", serif; font-size: 20px;font-weight:bold;}
+h4 {font-family: "American Typewriter", serif; font-size: 18px;font-weight:bold;}
+h5 {font-family: "American Typewriter", serif; font-size: 18px;font-weight:bold; color:#9F2B68;}
+p {font-family: "American Typewriter", serif;font-size: 14px;}
+
+
+.header {
+  border-bottom-color: #555;
+  font-size: 1.5rem;
+  font-weight: 700;
+  /*text-transform: uppercase;*/
+  color:#465362; 
+}
+/* Highlight headers when sorting */
+.header:hover,
+.header:focus,
+.header[aria-sort="ascending"],
+.header[aria-sort="descending"] {
+  background-color: #eee;
+}
+
+.manufacturer {
+  display: flex;
+  align-items: center;
+}
+.manufacturer-logo {
+  height: 2rem;
+  width: 4rem;
+  border: 1px solid #f0f0f0;
+}
+.manufacturer-name {
+  margin-left: 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color:#465362; 
+}
+.manufacturer-origin {
+  margin-left: 0.35rem;
+  color: hsl(0, 0%, 45%);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+a {color:#9F2B68;font-weight:normal}
+
+body, td {
+   font-size: 14px;
+}
+code.r{
+  font-size: 16px;
+}
+pre {
+  font-size: 16px
+}
+
+</style>
+<style type="text/css">
+
+/* pkgdown articles */
+.row > main {
+  max-width: 1800px;
+}
+.page-header {
+  display: none;
+}
+/* rmarkdown html documents */
+.main-container {
+  max-width: 1600px !important;
+  margin-left: 80px;
+  margin-right: 80px;
+  color:#184558;
+  font-family: "American Typewriter", serif; 
+  font-size: 15px;
+}
+</style>
+<div id="introduction" class="section level1 tabset">
+<h1 class="tabset">Introduction</h1>
+<div id="abstract" class="section level2">
+<h2>Abstract</h2>
+<ol style="list-style-type: decimal">
+<li>Objective</li>
+</ol>
+<p>In a phase 2 study, pimavanserin demonstrated efficacy as adjunctive
+treatment for major depressive disorder (MDD). Subsequently, two phase 3
+studies (NCT03968159 in the US; NCT03999918 in Europe) were initiated to
+examine the efficacy and safety of adjunctive pimavanserin in subjects
+with MDD and inadequate response to antidepressant treatment. Studies
+were combined with a prespecified statistical analysis plan owing to
+recruitment challenges related to the COVID-19 pandemic.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Experimental design</li>
+</ol>
+<p>The randomized, double-blind studies enrolled 298 patients with MDD
+and inadequate response to current antidepressants. Patients were
+randomly assigned 1:1 to pimavanserin or placebo added to current
+antidepressant for 6 weeks. Primary endpoint was change from baseline to
+week 5 in the Hamilton Rating Scale for Depression, 17-item version
+(HAM-D-17).</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Principal observations</li>
+</ol>
+<p>There was no effect of pimavanserin in change from baseline to week 5
+in the HAM-D-17 (pimavanserin [n = 138]: least-squares mean [LSM]
+[standard error {SE}], -9.0 [0.58]; placebo [n = 135]: -8.1 [0.58];
+mixed-effects model for repeated measures LSM [SE] difference, -0.9
+[0.82], P = 0.2956). Nominal improvement with pimavanserin was observed
+on 2 secondary endpoints: Clinical Global Impressions-Severity scale,
+Karolinska Sleepiness Scale. Treatment-emergent adverse events occurred
+in 58.1% of pimavanserin-treated and 54.7% of placebo-treated
+patients.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Conclusions</li>
+</ol>
+<p>Adjunctive pimavanserin did not significantly improve depressive
+symptoms, although pimavanserin was well tolerated.</p>
+</div>
+<div id="study-overview" class="section level2">
+<h2>Study Overview</h2>
+<ol style="list-style-type: decimal">
+<li>Brief Summary:</li>
+</ol>
+<p>To evaluate the efficacy and safety of adjunctive pimavanserin
+compared to placebo in subjects with major depressive disorder who have
+an inadequate response to antidepressant therapy</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Detailed Description:</li>
+</ol>
+<p>Two separate studies, idential in design, were planned and initiated
+under 2 protocol IDs and NCTs, i.e. study ACP-103-54 (NCT03999918) and
+ACP-103-059 (NCT03968159). In March 2020, recruitment of new patients
+was paused due to the emerging coronavirus disease 2019 (COVID-19)
+pandemic. At that point in time, about half of the planned patients had
+been randomized. The Sponsor decided to combine the 2 identically
+designed trials, with a prespecified combined statistical analysis plan.
+As a result, both trials were closed and proceeded with database lock
+and statistical analysis of the combined data. No further patients were
+enrolled.</p>
+<p>This entry now includes the combined data of studies ACP-103-054 and
+ACP-103-059.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Research Study:</li>
+</ol>
+<p>Phase 3, Multicenter, Randomized, Double-blind, Placebo-controlled
+Study to Evaluate the Efficacy and Safety of Adjunctive Pimavanserin in
+Subjects With Major Depressive Disorder and Inadequate Response to
+Antidepressant Treatment (ACP-103-054/059)</p>
+<ol start="4" style="list-style-type: decimal">
+<li>INTERVENTION / TREATMENT</li>
+</ol>
+<p>*Drug: Pimavanserin</p>
+<p>*Drug: Placebo</p>
+</div>
+<div id="eligibility-criteria" class="section level2">
+<h2>Eligibility Criteria</h2>
+<div id="inclusion-criteria" class="section level3">
+<h3>Inclusion Criteria:</h3>
+<p>Adult patients, aged 18 years and above A clinical diagnosis of major
+depressive disorder (MDD) Is being treated with one of the following
+SSRI or SNRI antidepressants:</p>
+<pre><code>Citalopram
+Escitalopram
+Paroxetine
+Fluoxetine
+Sertraline
+Duloxetine
+Venlafaxine
+Desvenlafaxine
+Venlafaxine XR</code></pre>
+<p>Inadequate response to SSRI/SNRI antidepressant treatment is
+confirmed If the subject is female, she must not be pregnant or
+breastfeeding. She must also be of non-childbearing potential OR must
+agree to use acceptable methods of contraception</p>
+</div>
+<div id="exclusion-criteria" class="section level3">
+<h3>Exclusion Criteria:</h3>
+<p>Has a history of psychotic disorder or is currently being treated or
+requires treatment for post-traumatic stress disorder, acute stress
+disorder, panic disorder, or obsessive compulsive disorder</p>
+<p>Has current evidence of delirium or an unstable neurological,
+cardiovascular, respiratory, gastrointestinal, renal, hepatic,
+hematologic, or other medical disorder, including cancer or malignancies
+that would affect the patient’s ability to participate in the program
+Has a known history or symptoms of long QT syndrome</p>
+<p>Is determined to be inappropriate for the study for any reason?</p>
+<p>Additional inclusion/exclusion criteria apply. Patients will be
+evaluated at screening to ensure that all criteria for study
+participation are met. Patients may be excluded from the study based on
+these assessments (and specifically, if it is determined that their
+baseline health and psychiatric condition do not meet all pre-specified
+entry criteria).</p>
+</div>
+</div>
+<div id="study-plan" class="section level2">
+<h2>Study Plan</h2>
+<div id="design-details" class="section level3">
+<h3>DESIGN DETAILS</h3>
+<ol style="list-style-type: decimal">
+<li>Primary Purpose: Treatment</li>
+<li>Allocation: Randomized</li>
+<li>Interventional Model: Parallel Assignment</li>
+<li>Masking: Quadruple (ParticipantCare ProviderInvestigatorOutcomes
+Assessor)</li>
+</ol>
+</div>
+<div id="arms-and-interventions" class="section level3">
+<h3>ARMS AND INTERVENTIONS</h3>
+<ol style="list-style-type: decimal">
+<li>Experimental: Drug - pimavanserin GROUP</li>
+</ol>
+<ul>
+<li>Drug: Pimavanserin</li>
+</ul>
+<p>Pimavanserin 34 mg (provided as 2×17 mg tablets) administered orally
+as a single dose once daily</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Placebo Comparator: Placebo GROUP</li>
+</ol>
+<ul>
+<li>Drug: Placebo</li>
+</ul>
+<p>Placebo (2×placebo tablets [size- and color-matched to pimavanserin])
+administered orally as a single dose once daily</p>
+</div>
+<div id="what-is-study-measuring" class="section level3">
+<h3>What is study measuring?</h3>
+<ol style="list-style-type: decimal">
+<li>PRIMARY OUTCOME MEASURES</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Outcome Measure</li>
+</ol>
+<p>Change From Baseline to Week 5 in Hamilton Depression Scale (17
+Items) (HAMD-17) Total Score Source: <a
+href="http://www.npcrc.org/files/news/hamilton_depression_scale.pdf"
+class="uri">http://www.npcrc.org/files/news/hamilton_depression_scale.pdf</a></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Measure Description</li>
+</ol>
+<p>The HAMD-17 consists of 8 items with a score on a 3 point scale and 9
+items with a score on a 5 point scale. The total score ranging from 0 to
+52 will be calculated as the sum of the scores for all 17 items. Higher
+total scores denote more severe depression.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Time Frame</li>
+</ol>
+<p>Baseline, Week 5</p>
+<ol start="2" style="list-style-type: decimal">
+<li>SECONDARY OUTCOME MEASURES</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Outcome Measure</li>
+</ol>
+<ul>
+<li><p>Change From Baseline to Week 5 in Clinical Global
+Impression-Severity (CGI-S) Score for Depressive Symptoms</p></li>
+<li><p>Change From Baseline to Week 5 in Sheehan Disability Scale (SDS)
+Score</p></li>
+<li><p>Change From Baseline to Week 5 in the Changes in Sexual
+Functioning Questionnaire Short Form</p></li>
+</ul>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Measure Description</li>
+</ol>
+<ul>
+<li><p>The CGI-S rates the severity of a subject’s depression over the
+past 7 days and the score ranges from 1 to 7. Higher CGI-S scores denote
+more severe depression.</p></li>
+<li><p>The SDS is a 3-item subject-facing questionnaire used to evaluate
+impairments in the domains of work, social life/leisure, and family
+life/home responsibility. Subjects rate each item using an 11-point
+scale ranging from 0 (not at all) to 10 (extremely). Higher scores
+denote greater disability.</p></li>
+<li><p>The CSFQ-14 is a 14-item version of the CSFQ. This is a
+patient-facing questionnaire, with a male version and a female version.
+The total score ranging from 14 to 70 will be calculated as the sum of
+the scores for all 14 items. Higher total scores denote better sexual
+functioning.</p></li>
+</ul>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Time Frame</li>
+</ol>
+<p>Baseline, 5 weeks</p>
+</div>
+</div>
+</div>
+<div id="simulation-data" class="section level1 tabset">
+<h1 class="tabset">Simulation Data</h1>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<ol style="list-style-type: decimal">
+<li>List all files in <code>data</code> directory</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">&quot;../data&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>ls_file <span class="ot">&lt;-</span> <span class="fu">list.files</span>(path, <span class="at">pattern =</span> <span class="st">&quot;.csv&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>ls_file</span></code></pre></div>
+<pre><code>## [1] &quot;adae.csv&quot;    &quot;adcm.csv&quot;    &quot;adqhamd.csv&quot; &quot;adsl.csv&quot;</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Read all files at once</li>
+</ol>
+<ul>
+<li><p>Initial a list
+<code>vector("list", length = length(ls_file))</code>, which stores all
+files.</p></li>
+<li><p>Using <code>lapply</code> to read all files</p></li>
+<li><p>Set the name of the list
+<code>names(ls_file_out) &lt;- gsub("\\..*","",ls_file)</code></p></li>
+<li><p>Access the file by <code>ls_file_out[[1]]</code> or
+<code>ls_file_out$adsl</code></p></li>
+<li><p>Add all files to the global environment
+<code>list2env(ls_file_out, envir=.GlobalEnv)</code>. If you want to
+access data, just call name of data <code>adsl</code>,
+<code>adae</code>, etc.</p></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Initial a list</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>ls_file_out <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="at">length =</span> <span class="fu">length</span>(ls_file))</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># Reading all of files which under the name ls_file</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>ls_file_out <span class="ot">&lt;-</span> <span class="fu">lapply</span>(ls_file, <span class="cf">function</span>(i) <span class="fu">read.csv</span>(<span class="fu">paste0</span>(path,<span class="st">&quot;/&quot;</span>,i)))</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co"># Set the name of the list</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="fu">names</span>(ls_file_out) <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">..*&quot;</span>,<span class="st">&quot;&quot;</span>,ls_file)</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co"># Add all files in the global enviroment</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="fu">list2env</span>(ls_file_out, <span class="at">envir=</span>.GlobalEnv)</span></code></pre></div>
+<pre><code>## &lt;environment: R_GlobalEnv&gt;</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Quick check</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co"># dplyr::glimpse(ls_file_out[[1]])</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#dplyr::glimpse(ls_file_out$adsl)</span></span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Summary data</li>
+</ol>
+<ul>
+<li><p>Quick summary <code>adsl</code></p></li>
+<li><p>Practice plots</p></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(arsenal)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>keep <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;STUDYID&quot;</span>, <span class="st">&quot;AGE&quot;</span> , <span class="st">&quot;AGE&quot;</span> , <span class="st">&quot;AGEGR1&quot;</span>, <span class="st">&quot;SEX&quot;</span> , <span class="st">&quot;RACE&quot;</span>,<span class="st">&quot;ETHNIC&quot;</span>, <span class="st">&quot;ENRLFL&quot;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>dt_adsl <span class="ot">&lt;-</span> ls_file_out<span class="sc">$</span>adsl[ ,<span class="fu">names</span>(ls_file_out<span class="sc">$</span>adsl) <span class="sc">%in%</span> keep ]</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>table_one <span class="ot">&lt;-</span> arsenal<span class="sc">::</span><span class="fu">tableby</span>(STUDYID <span class="sc">~</span> ., <span class="at">data =</span> dt_adsl)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(table_one, <span class="at">title =</span> <span class="st">&quot;Summary adsl Data&quot;</span>))</span></code></pre></div>
+<table>
+<colgroup>
+<col width="47%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">STUDY-1 (N=150)</th>
+<th align="left">STUDY-2 (N=148)</th>
+<th align="left">Total (N=298)</th>
+<th align="left">p value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>AGE</strong></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0.333</td>
+</tr>
+<tr class="even">
+<td align="left">   Mean (SD)</td>
+<td align="left">45.053 (13.473)</td>
+<td align="left">46.655 (14.996)</td>
+<td align="left">45.849 (14.248)</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">   Range</td>
+<td align="left">20.000 - 83.000</td>
+<td align="left">18.000 - 77.000</td>
+<td align="left">18.000 - 83.000</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>AGEGR1</strong></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0.146</td>
+</tr>
+<tr class="odd">
+<td align="left">   &gt;40 Years</td>
+<td align="left">86 (57.3%)</td>
+<td align="left">97 (65.5%)</td>
+<td align="left">183 (61.4%)</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">   18 to 40 Years</td>
+<td align="left">64 (42.7%)</td>
+<td align="left">51 (34.5%)</td>
+<td align="left">115 (38.6%)</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>SEX</strong></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0.405</td>
+</tr>
+<tr class="even">
+<td align="left">   F</td>
+<td align="left">108 (72.0%)</td>
+<td align="left">100 (67.6%)</td>
+<td align="left">208 (69.8%)</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">   M</td>
+<td align="left">42 (28.0%)</td>
+<td align="left">48 (32.4%)</td>
+<td align="left">90 (30.2%)</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>RACE</strong></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">&lt; 0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">   AMERICAN INDIAN OR ALASKA NATIVE</td>
+<td align="left">0 (0.0%)</td>
+<td align="left">1 (0.7%)</td>
+<td align="left">1 (0.3%)</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">   ASIAN</td>
+<td align="left">0 (0.0%)</td>
+<td align="left">3 (2.0%)</td>
+<td align="left">3 (1.0%)</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">   BLACK OR AFRICAN AMERICAN</td>
+<td align="left">0 (0.0%)</td>
+<td align="left">14 (9.5%)</td>
+<td align="left">14 (4.7%)</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">   OTHER</td>
+<td align="left">0 (0.0%)</td>
+<td align="left">6 (4.1%)</td>
+<td align="left">6 (2.0%)</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">   WHITE</td>
+<td align="left">150 (100.0%)</td>
+<td align="left">124 (83.8%)</td>
+<td align="left">274 (91.9%)</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>ETHNIC</strong></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">&lt; 0.001</td>
+</tr>
+<tr class="odd">
+<td align="left">   HISPANIC OR LATINO</td>
+<td align="left">1 (0.7%)</td>
+<td align="left">28 (18.9%)</td>
+<td align="left">29 (9.7%)</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">   NOT HISPANIC OR LATINO</td>
+<td align="left">149 (99.3%)</td>
+<td align="left">120 (81.1%)</td>
+<td align="left">269 (90.3%)</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>ENRLFL</strong></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0.908</td>
+</tr>
+<tr class="even">
+<td align="left">   Y</td>
+<td align="left">150 (100.0%)</td>
+<td align="left">148 (100.0%)</td>
+<td align="left">298 (100.0%)</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="checking" class="section level2">
+<h2>Checking</h2>
+</div>
+<div id="explore" class="section level2">
+<h2>Explore</h2>
+</div>
+<div id="visualization" class="section level2">
+<h2>Visualization</h2>
+</div>
+</div>
+<div id="homework" class="section level1 tabset">
+<h1 class="tabset">Homework</h1>
+<p><br></p>
+</div>
+
+&nbsp;
+    <h5 style="text-align: center;color:#465362;"> Thank you for reading </h5>
+    <hr style="height:2px;border-width:0;color:#184558;background-color:#184558">
+    <div class="footer">
+    <p style="text-align: center;">R Shiny with <a href="https://github.com/loankimrobinson/">Loan Robinson</a></p>
+    <p style="text-align: center;"><span style="color: #808080;"><em><a href="mailto:loankimrobinson@gmail.com">loankimrobinson@gmail.com</a></em></span></p>
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- Add font awesome icons -->
+    <p style="text-align: center;">
+      <a href="https://twitter.com/rshiny_with_loan?lang=en" class="fa fa-twitter"></a>
+      <a href="https://www.linkedin.com/in/loan-robinson-86776994/" class="fa fa-linkedin"></a>
+      <a href="https://github.com/loankimrobinson/" class="fa fa-github"></a>
+      <a href="https://youtube.com/@rshiny_with_loan/" class="fa fa-youtube"></a>
+    </p>
+    </div>
+    &nbsp;
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+
+</body>
+</html>
