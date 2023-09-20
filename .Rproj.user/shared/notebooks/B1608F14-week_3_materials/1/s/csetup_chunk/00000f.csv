@@ -1,0 +1,50 @@
+"0",""
+"0","knitr::opts_chunk$set(echo = TRUE)"
+"0","options(reactable.static = TRUE)"
+"0","library(ggpubr)"
+"2","载入需要的程辑包：ggplot2
+"
+"0","library(ggplot2)"
+"0","library(RColorBrewer) "
+"0","library(reactable)"
+"2","Registered S3 method overwritten by 'htmlwidgets':
+  method           from         
+  print.htmlwidget tools:rstudio
+"
+"0","library(reactablefmtr)"
+"2","
+载入程辑包：‘reactablefmtr’
+
+"
+"2","The following object is masked from ‘package:ggplot2’:
+
+    margin
+
+"
+"0","library(htmltools)"
+"0","library(dplyr)"
+"2","
+载入程辑包：‘dplyr’
+
+"
+"2","The following object is masked _by_ ‘.GlobalEnv’:
+
+    starwars
+
+"
+"2","The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+"
+"0","library(fontawesome)"
+"0","library(DT)"
+"0","library(klippy) # remotes::install_github(""rlesur/klippy"")"
+"0","# renv::settings$snapshot.type(""all"")"
+"0","# renv::snapshot()"
+"0","library(arsenal)  #  install.packages(""arsenal"")"

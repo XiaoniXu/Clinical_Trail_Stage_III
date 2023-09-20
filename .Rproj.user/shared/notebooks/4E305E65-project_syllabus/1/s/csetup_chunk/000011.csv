@@ -1,0 +1,12 @@
+"0",""
+"0","knitr::opts_chunk$set(echo = TRUE)"
+"0","options(reactable.static = TRUE)"
+"0","library(reactable)"
+"0","library(reactablefmtr)"
+"0","library(htmltools)"
+"0","library(dplyr)"
+"0","library(fontawesome)"
+"0","library(DT)"
+"0","library(klippy) # remotes::install_github(""rlesur/klippy"")"
+"2","Error in library(klippy) : there is no package called ‘klippy’
+"

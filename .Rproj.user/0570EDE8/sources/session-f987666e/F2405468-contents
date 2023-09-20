@@ -1,0 +1,889 @@
+---
+knit: (function(inputFile, encoding) { 
+      out_dir <- file.path(getwd());
+      rmarkdown::render(inputFile,
+                        encoding=encoding, 
+                        output_file = file.path(out_dir , 'Week1_material_homework.html'))})
+title: "Week 1 Materials and Homeworks"
+subtitle: "Data Processing, Wrangling and Visualization with ggplot2 and ggpubr"
+author: |
+  | Author: Xiaoni Xu
+  | [Github: https://github.com/XiaoniXu]
+  | [LinkedIn: https://www.linkedin.com/in/xiaoni-xu-275a21172/]
+date: "`r Sys.Date()`"
+toc-title: "Table of Contents"
+output:
+  html_document:
+    include:
+      after_body: after.html
+    self_contained: no
+    toc: yes
+    toc_depth: 4
+    toc_float: true
+    toc_collapsed: true
+    number_sections: false
+    theme: cerulean
+    highlight: zenburn
+    template: toc2.html
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
+indent: yes
+params:
+  github: loankimrobinson
+  author: Loan Robinson
+  email: loankimrobinson@gmail.com
+  twitter: rshiny_with_loan
+  linkedin: loan-robinson-86776994
+  youtube: rshiny_with_loan
+---
+
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+options(reactable.static = TRUE)
+library(ggpubr)
+library(ggplot2)
+library(RColorBrewer) 
+library(reactable)
+library(reactablefmtr)
+library(htmltools)
+library(dplyr)
+library(fontawesome)
+library(DT)
+library(klippy) # remotes::install_github("rlesur/klippy")
+# renv::settings$snapshot.type("all")
+# renv::snapshot()
+```
+
+
+```{r klippy, echo=FALSE, include=TRUE}
+
+# Add copy to clibboard
+klippy::klippy(
+  lang = c("r", "markdown"),
+  all_precode = TRUE,
+  position = c("top", "right"),
+  color = "white",
+  tooltip_message = "Click to copy",
+  tooltip_success = "Copied!"
+)
+
+tf <- tempfile(fileext = c(".Rmd", ".html"))
+writeLines(
+  c("```{r klippy, echo=FALSE, include=TRUE}",
+    "klippy::klippy()",
+    "```",
+    "Insert this chunk in your `Rmd` file:",
+    "````markdown",
+    "`r ''````{r klippy, echo=FALSE, include=TRUE}",
+    "klippy::klippy()",
+    "```",
+    "````"
+  ),
+  tf[1]
+)
+
+if (FALSE) {
+rmarkdown::render(tf[1], "html_document", tf[2])
+browseURL(paste0("file://", tf[2]))}
+```
+
+
+```{r setup-footer, include=FALSE}
+# https://stackoverflow.com/questions/71621136/rmarkdown-yaml-section-add-authors-hyperlink-email-to-footer
+knitr::opts_chunk$set(echo = TRUE)
+
+writeLines(
+  sprintf(
+    '&nbsp;
+    <h5 style="text-align: center;color:#465362;"> Thank you for reading </h5>
+    <hr style="height:2px;border-width:0;color:#184558;background-color:#184558">
+    <div class="footer">
+    <p style="text-align: center;">R Shiny with <a href="https://github.com/%s/">%s</a></p>
+    <p style="text-align: center;"><span style="color: #808080;"><em><a href="mailto:%s">%s</a></em></span></p>
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- Add font awesome icons -->
+    <p style="text-align: center;">
+      <a href="https://twitter.com/%s?lang=en" class="fa fa-twitter"></a>
+      <a href="https://www.linkedin.com/in/%s/" class="fa fa-linkedin"></a>
+      <a href="https://github.com/%s/" class="fa fa-github"></a>
+      <a href="https://youtube.com/@%s/" class="fa fa-youtube"></a>
+    </p>
+    </div>
+    &nbsp;',
+    params$github,
+    params$author,
+    params$email,
+    params$email,
+    params$twitter,
+    params$linkedin,
+    params$github,
+    params$youtube
+  ),
+  'after.html'
+)
+```
+
+
+```{css ref.label="styles", echo=FALSE}
+
+```
+
+
+```{css ref.label="pkgdown_styles", echo=FALSE}
+```
+
+
+```{css styles, eval=FALSE, include = FALSE}
+#TOC {
+  left: 100px;
+  margin: 10px 0px 25px 0px;
+  border-color: #184558;
+}
+
+.main-container {
+    margin-left: 30px;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    z-index: 2;
+    color: #ffffff;
+    background-color: #9F2B68;
+    border-color: #9F2B68;
+}
+
+.tocify-subheader > .tocify-item { text-indent: initial; padding-left:2em;}
+
+
+/*https://www.w3.org/Style/Examples/007/fonts.en.html*/
+.author {font-size: 15px;font-family: "American Typewriter", serif;color:#9F2B68;}
+.title {font-family: "Apple Chancery", cursive; font-size: 35px;font-weight:bold;}
+.date {font-family: "American Typewriter", serif; font-size: 20px;font-weight:bold;}
+.subtitle {font-family: "American Typewriter", serif; font-size: 20px;font-weight:bold;}
+h3 {font-family: "American Typewriter", serif; font-size: 20px;font-weight:bold;}
+h4 {font-family: "American Typewriter", serif; font-size: 18px;font-weight:bold;}
+h5 {font-family: "American Typewriter", serif; font-size: 18px;font-weight:bold; color:#9F2B68;}
+p {font-family: "American Typewriter", serif;font-size: 14px;}
+
+
+.header {
+  border-bottom-color: #555;
+  font-size: 1.5rem;
+  font-weight: 700;
+  /*text-transform: uppercase;*/
+  color:#465362; 
+}
+/* Highlight headers when sorting */
+.header:hover,
+.header:focus,
+.header[aria-sort="ascending"],
+.header[aria-sort="descending"] {
+  background-color: #eee;
+}
+
+.manufacturer {
+  display: flex;
+  align-items: center;
+}
+.manufacturer-logo {
+  height: 2rem;
+  width: 4rem;
+  border: 1px solid #f0f0f0;
+}
+.manufacturer-name {
+  margin-left: 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color:#465362; 
+}
+.manufacturer-origin {
+  margin-left: 0.35rem;
+  color: hsl(0, 0%, 45%);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+a {color:#9F2B68;font-weight:normal}
+
+body, td {
+   font-size: 14px;
+}
+code.r{
+  font-size: 16px;
+}
+pre {
+  font-size: 16px
+}
+
+```
+
+
+```{css pkgdown_styles, include=FALSE}
+
+/* pkgdown articles */
+.row > main {
+  max-width: 1800px;
+}
+.page-header {
+  display: none;
+}
+/* rmarkdown html documents */
+.main-container {
+  max-width: 1600px !important;
+  margin-left: 80px;
+  margin-right: 80px;
+  color:#184558;
+  font-family: "American Typewriter", serif; 
+  font-size: 15px;
+}
+```
+
+
+## Instruction
+
+1. Before you run this file, create `data` folder inside `first_project` folder. NOT `materials` folder 
+2. Save data `starwars` in data folder.
+3. Installing `ggpubr` package by `install.packages("ggpubr")`
+4. Installing `RColorBrewer` package by `install.packages("RColorBrewer")` 
+4. Loading these following R packages.
+5. Save this file `week_1_materials.Rmd` in `materials` folder. 
+6. Save `data-visualization.pdf` in `pics` folder, which is under `materials` folder 
+
+## Source
+
+1. https://r-graph-gallery.com/38-rcolorbrewers-palettes.html
+
+2. https://ggplot2.tidyverse.org/
+
+3. https://dplyr.tidyverse.org/
+
+4. https://rpkgs.datanovia.com/ggpubr/
+
+## Homework
+
+1. Follow the Intruction and run `week1_materials.Rmd`sucsessful
+
+2. Publishing `week1_materials.html` to your `rpub` account
+
+3. Open the new working file, name `week1_homework.R`, practicing writing r codes, look at the rcodes in `block` of `week1_materials.Rmd`. I suggest copy all r block to `week1_homework.R`, then working on `week1_homework.R`
+
+```{r read, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(ggpubr)
+library(ggplot2)
+library(RColorBrewer) 
+library(reactable)
+library(reactablefmtr)
+library(htmltools)
+library(fontawesome)
+library(DT)
+library(klippy) 
+```
+
+## Data Manipulation {.tabset}
+
+We are using library `dplyr` and data name `starwars` for data manipulation. `starwars` stored in `data` folder. Before you run the `r_codes`, remember call `library(dplyr)`
+
+
+### Read data
+
+1. Read data `starwars` from data folder.
+
+`starwars <- read.csv("../data/starwars.csv")`
+
+2. Print the first 6 rows of `starwars` 
+
+`head(starwars)`
+
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+# 1. Read data `starwars` from data folder.
+starwars <- read.csv("data/starwars.csv")
+
+# 2. Print the first 6 rows of `starwars` 
+head(starwars)
+```
+
+
+### Structure `glimpse()`
+
+1. Checking structure of `starwars`. 
+
+`dplyr::glimpse(starwars)`
+
+2. Checking summary of `starwars`.
+
+`summary(starwars)`
+
+3. List of column names of `starwars`.
+
+`colnames(starwars)`
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+# 1. Checking structure of `starwars`. you can you use str(starwars)
+dplyr::glimpse(starwars)
+
+# 2. Checking summary of `starwars`.
+summary(starwars)
+
+# 3. List of column names of `starwars`.
+colnames(starwars)
+```
+
+### Selecting `select()`
+
+1. Selecting rows and columns using R Base
+
+`starwars[c(1:4), c('name', 'homeworld')]`
+
+2. Selecting rows and columns using `dplyr` package
+
+* Select the firs 4 rows and columns name, homeworld
+
+`starwars %>% slice(1:4) %>% dplyr::select(name, homeworld)`
+
+* Select the firs 4 rows and columns name, homeworld with index
+
+`starwars %>% slice(1:4) %>% dplyr::select(1, 9)`
+
+* Select the firs 4 rows and choose all columns BUT name
+
+`starwars %>% slice(1:4) %>% dplyr::select(-name)`
+
+* Select the firs 4 rows and choose only columns containing an underscore
+
+`starwars %>% slice(1:4) %>% dplyr::select(contains("_"))`
+
+* Select the firs 4 rows and choose only columns beginning with "s"
+
+`starwars %>% slice(1:4) %>% dplyr::select(starts_with("s"))`
+
+```{r  summary, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+# Select the firs 4 rows and columns name, homeworld with R base
+starwars[c(1:4), c('name', 'homeworld')]
+
+# Select the firs 4 rows and columns name, homeworld with R base using index
+starwars[c(1:4), c(1, 9)]
+
+# using dplyr
+# Select the firs 4 rows and columns name, homeworld
+starwars %>% slice(1:4) %>% dplyr::select(name, homeworld)
+
+# Select the firs 4 rows and columns name, homeworld with index
+starwars %>% slice(1:4) %>% dplyr::select(1, 9)
+
+# Select the firs 4 rows and choose all columns BUT name
+starwars %>% slice(1:4) %>% dplyr::select(-name)
+
+# Select the firs 4 rows and choose only columns containing an underscore
+starwars %>% slice(1:4) %>% dplyr::select(contains("_"))
+
+# Select the firs 4 rows and choose only columns beginning with "s"
+starwars %>% slice(1:4) %>% dplyr::select(starts_with("s"))
+```
+
+
+### Filtering `filter()`
+
+1. Select columns name, mass, homeworld and filter only characters with their Weight greater than the average of the Weight for all characters.
+
+`starwars %>% filter(mass > mean(mass, na.rm = TRUE)) %>% dplyr::select(name,mass, homeworld)`
+
+2. Select columns name, species, homeworld and filter only characters with species is "Human"
+
+`filter(starwars, species == "Human") %>% dplyr::select(name, species, homeworld)`
+
+3. Select columns name, hair_color, homeworld, eye_color and filter only characters with hair_color is "none" and  eye_color is "black"
+
+`filter(starwars, hair_color == "none" & eye_color == "black") %>% dplyr::select(name, hair_color,homeworld, eye_color )`
+
+4. Select columns name, hair_color, homeworld, eye_color and filter only characters with weight greater than 1000 and height greater than 150
+
+`starwars %>% filter(mass >1000 & height > 150) %>% dplyr::select(name, hair_color,homeworld, eye_color )`
+
+5. Within group Gender, select columns gender, mass, name, hair_color, eye_color eye_color and filter only characters with their Weight greater than the average of the Weight for all characters.
+
+`starwars %>% group_by(gender) %>% filter(mass > mean(mass, na.rm = TRUE)) %>% dplyr::select(gender, mass, name, hair_color, eye_color )`
+
+
+```{r filter, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+
+# 1. Select columns name, mass, homeworld and filter only characters with their Weight greater than the average of the Weight for all characters using dplyr
+starwars %>% filter(mass > mean(mass, na.rm = TRUE)) %>% dplyr::select(name,mass, homeworld)
+
+# 2. Select columns name, species, homeworld and and filter only characters with species == "Human"
+filter(starwars, species == "Human") %>% dplyr::select(name, species, homeworld)
+
+# 3. Select columns name, hair_color, homeworld, eye_color and and filter only characters with hair_color is "none" and  eye_color is "black"
+filter(starwars, hair_color == "none" & eye_color == "black") %>% dplyr::select(name, hair_color,homeworld, eye_color )
+
+# 4. Select columns name, hair_color, homeworld, eye_color and and filter only characters with weight greater than 1000 and height greater than 150
+starwars %>% filter(mass >1000 & height > 150) %>% dplyr::select(name, hair_color,homeworld, eye_color )
+
+# 5. Within group Gender, select columns gender, mass, name, hair_color, eye_color eye_color and filter only characters with their Weight greater than the average of the Weight for all characters.
+starwars %>% group_by(gender) %>% filter(mass > mean(mass, na.rm = TRUE)) %>% dplyr::select(gender, mass, name, hair_color, eye_color )
+
+
+```
+
+
+### Create new variables `mutate()`
+
+a. Select variable name, mass, species. Create a new variable name mass_norm, which use mass divide by mean of mass
+
+`starwars %>% select(name, mass, species) %>% mutate(mass_norm = mass / mean(mass, na.rm = TRUE))`
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+# without group
+# Select variable name, mass, species. Create a new variable name mass_norm, which use mass divide by mean of mass
+starwars %>%
+  select(name, mass, species) %>%
+  mutate(mass_norm = mass / mean(mass, na.rm = TRUE))
+
+```
+
+b. Select variable name, height, mass, homeworld, species. Create a new variable name mass_norm within group of species, which use mass divide by mean of mass
+
+`starwars %>% select(name, height, mass, homeworld, species) %>% group_by(species) %>% mutate(mass_norm = mass / mean(mass, na.rm = TRUE))`
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+# Select variable name, height, mass, homeworld, species. Create a new variable name mass_norm within group of species, which use mass divide by mean of mass
+starwars %>%
+  select(name, height, mass, homeworld, species) %>%
+  group_by(species) %>%
+  mutate(mass_norm = mass / mean(mass, na.rm = TRUE))
+
+```
+
+c. Select variable name, height, mass, homeworld. Create a variable mass2 by mass x 2 then mass2 x mass2
+
+`starwars %>% select(name, height, mass, homeworld) %>% mutate( mass2 = mass * 2, mass2_squared = mass2 * mass2)`
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+
+# Select variable name, height, mass, homeworld. Create a variable mass2 by mass x 2 then mass2 x mass2
+starwars %>%
+  select(name, height, mass, homeworld) %>%
+  mutate(
+    mass2 = mass * 2,
+    mass2_squared = mass2 * mass2
+  )
+
+
+```
+
+d. Select variable name, height, mass, homeworld.  Update a variable height by converting height to feet
+
+`starwars %>% select(name, height, mass, homeworld) %>% mutate( mass = NULL, height = height * 0.0328084 # convert to feet)`
+
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+# As well as adding new variables, you can use mutate() to
+# remove variables and modify existing variables.
+starwars %>%
+  select(name, height, mass, homeworld) %>%
+  mutate(
+    mass = NULL,
+    height = height * 0.0328084 # convert to feet
+  )
+
+
+```
+
+
+e. Select variable name, homeworld, species and then convert only homeworld, species to factor
+
+`starwars %>% select(name, homeworld, species) %>% mutate(across(!name, as.factor))`
+
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+
+# Use across() with mutate() to apply a transformation
+# to multiple columns in a tibble.
+starwars %>%
+  select(name, homeworld, species) %>%
+  mutate(across(!name, as.factor))
+
+```
+
+
+## Data Visualization with `ggplot2` and `ggpubr` {.tabset}
+
+
+### Scatter plot 
+
+1. Using `mpg` data from `ggplot2` package, plot `disl` and `hwy` with color by `class`
+
+`ggplot(data = mpg, aes(x = displ, y = hwy, colour = class))  + geom_point(size = 3)`
+
+2. Using `mpg` data from `ggplot2` package, plot `disl` and `hwy` with color by `class` and add color style and linear regression line
+
+3. Using `mpg` data from `ggplot2` package, plot `disl` and `hwy` with color by `class` and  `facet_grid(vars(cyl)`
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, fig.asp = 0.8, fig.width = 8}
+# 1. Using `mpg` data from `ggplot2` package, plot `disl` and `hwy` with color by `class`
+p <- ggplot(data = mpg, aes(x = displ, y = hwy, colour = class))  + 
+  geom_point(size = 3)
+p
+
+
+# 2. Using `mpg` data from `ggplot2` package, plot `disl` and `hwy` with color by `class` and add color style and linear regression line
+p <- ggplot(data = mpg, aes(x = displ, y = hwy, colour = class))  + 
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", formula = "y ~ x", alpha = 0.3) +
+  scale_color_viridis_d() +
+  scale_fill_viridis_d() +
+  labs(x = "Display", y = "Highway", fill = "Class", color = "Class")
+p
+
+
+# 3. Using `mpg` data from `ggplot2` package, plot `disl` and `hwy` with color by `class` and  `facet_grid(vars(cyl)`
+p <- ggplot(mpg, aes(displ, hwy, colour = class))  + 
+  geom_point(size = 3) +
+  scale_color_viridis_d() +
+  scale_fill_viridis_d() +
+  facet_grid(vars(cyl), scales = "free")
+p
+
+
+```
+
+
+### Bar plot 
+
+1. Using `mpg` data from `ggplot2` package, plot the number of manufacturer by color `class`
+
+2. Using `mpg` data from `ggplot2` package, plot the propotion of manufacturer by color `class`
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, fig.asp = 0.8, fig.width = 10}
+
+
+
+# 1. Using `mpg` data from `ggplot2` package, plot the number of manufacturer by color `class`
+p <- ggplot(data = mpg, aes(x = manufacturer,fill = as.character(cyl)))   + 
+     geom_bar(position = "stack") + 
+     scale_fill_brewer(palette = "BuPu")
+     
+p
+
+
+# 2. Using `mpg` data from `ggplot2` package, plot the propotion of manufacturer by color `class`
+p <- ggplot(data = mpg, aes(x = manufacturer,fill = as.character(cyl)))  + 
+     geom_bar(position = "fill") 
+     
+p
+
+
+# Load data
+data("mtcars")
+dfm <- mtcars
+# Convert the cyl variable to a factor
+dfm$cyl <- as.factor(dfm$cyl)
+# Add the name colums
+dfm$name <- rownames(dfm)
+
+ggbarplot(dfm, x = "name", y = "mpg",
+          fill = "cyl",               # change fill color by cyl
+          color = "white",            # Set bar border colors to white
+          palette = "jco",            # jco journal color palett. see ?ggpar
+          sort.val = "desc",          # Sort the value in dscending order
+          sort.by.groups = FALSE,     # Don't sort inside each group
+          x.text.angle = 90           # Rotate vertically x axis texts
+          )
+
+
+ggbarplot(dfm, x = "name", y = "mpg",
+          fill = "cyl",               # change fill color by cyl
+          color = "white",            # Set bar border colors to white
+          palette = "jco",            # jco journal color palett. see ?ggpar
+          sort.val = "asc",           # Sort the value in dscending order
+          sort.by.groups = TRUE,      # Sort inside each group
+          x.text.angle = 90           # Rotate vertically x axis texts
+          )
+
+
+```
+
+
+### Density plot
+
+1. Create a dataset name `wdata`
+2. Density plot with mean lines and marginal rug
+3. Change outline and fill colors by groups ("sex")
+4. Use custom palette
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, fig.asp = 0.8, fig.width = 10}
+# Create some data format
+set.seed(1234)
+wdata = data.frame(
+   sex = factor(rep(c("F", "M"), each=200)),
+   weight = c(rnorm(200, 55), rnorm(200, 58)))
+head(wdata, 4)
+
+# Density plot with mean lines and marginal rug
+# Change outline and fill colors by groups ("sex")
+# Use custom palette
+ggdensity(data = wdata, x = "weight",
+   add = "mean", rug = TRUE,
+   color = "sex", fill = "sex",
+   palette = c("#00AFBB", "#E7B800"))
+
+
+```
+
+### Histogram plot
+
+1. Using a dataset name `wdata`
+2. Histogram plot with mean lines and marginal rug
+3. Change outline and fill colors by groups ("sex")
+4. Use custom palette
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, fig.asp = 0.8, fig.width = 10}
+# Histogram plot with mean lines and marginal rug
+# Change outline and fill colors by groups ("sex")
+# Use custom color palette
+gghistogram(data = wdata, x = "weight",
+    add = "mean", rug = TRUE,
+   color = "sex", fill = "sex",
+   palette = c("#00AFBB", "#E7B800"))
+
+```
+
+
+### Box plots
+
+1. Loading data `ToothGrowth`
+2. Box plots with jittered points
+3. Change outline colors by groups: dose
+4. Use custom color palette
+5. Add jitter points and change the shape by groups
+6. Add p-values comparing groups
+7. Specify the comparisons you want
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, fig.asp = 0.8, fig.width = 10}
+# Load data
+data("ToothGrowth")
+df <- ToothGrowth
+head(df, 4)
+
+# Box plots with jittered points
+# Change outline colors by groups: dose
+# Use custom color palette
+# Add jitter points and change the shape by groups
+ p <- ggboxplot(df, x = "dose", y = "len",
+                color = "dose", palette =c("#00AFBB", "#E7B800", "#FC4E07"),
+                add = "jitter", shape = "dose")
+ p
+
+ 
+# Add p-values comparing groups
+# Specify the comparisons you want
+my_comparisons <- list( c("0.5", "1"), c("1", "2"), c("0.5", "2") )
+p + stat_compare_means(comparisons = my_comparisons)+ # Add pairwise comparisons p-value
+  stat_compare_means(label.y = 50) 
+
+```
+
+
+### Violin plots
+
+1. Violin plots with box plots inside
+2. Change fill color by groups: dose
+3. add boxplot with white fill color
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, fig.asp = 0.8, fig.width = 10}
+# Violin plots with box plots inside
+# Change fill color by groups: dose
+# add boxplot with white fill color
+ggviolin(df, x = "dose", y = "len", fill = "dose",
+         palette = c("#00AFBB", "#E7B800", "#FC4E07"),
+         add = "boxplot", add.params = list(fill = "white"))+
+  stat_compare_means(comparisons = my_comparisons, label = "p.signif")+ # Add significance levels
+  stat_compare_means(label.y = 50)  
+
+```
+
+### Deviation graphs
+
+The deviation graph shows the deviation of quantitatives values to a reference value. In the R code below, we’ll plot the mpg z-score from the mtcars dataset.
+
+Calculate the z-score of the mpg data:
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, fig.asp = 0.8, fig.width = 8}
+# Calculate the z-score of the mpg data
+dfm$mpg_z <- (dfm$mpg -mean(dfm$mpg))/sd(dfm$mpg)
+dfm$mpg_grp <- factor(ifelse(dfm$mpg_z < 0, "low", "high"), 
+                     levels = c("low", "high"))
+# Inspect the data
+head(dfm[, c("name", "wt", "mpg", "mpg_z", "mpg_grp", "cyl")])
+
+
+
+ggbarplot(dfm, x = "name", y = "mpg_z",
+          fill = "mpg_grp",           # change fill color by mpg_level
+          color = "white",            # Set bar border colors to white
+          palette = "jco",            # jco journal color palett. see ?ggpar
+          sort.val = "asc",           # Sort the value in ascending order
+          sort.by.groups = FALSE,     # Don't sort inside each group
+          x.text.angle = 90,          # Rotate vertically x axis texts
+          ylab = "MPG z-score",
+          xlab = FALSE,
+          legend.title = "MPG Group"
+          )
+
+ggbarplot(dfm, x = "name", y = "mpg_z",
+          fill = "mpg_grp",           # change fill color by mpg_level
+          color = "white",            # Set bar border colors to white
+          palette = "jco",            # jco journal color palett. see ?ggpar
+          sort.val = "desc",          # Sort the value in descending order
+          sort.by.groups = FALSE,     # Don't sort inside each group
+          x.text.angle = 90,          # Rotate vertically x axis texts
+          ylab = "MPG z-score",
+          legend.title = "MPG Group",
+          rotate = TRUE,
+          ggtheme = theme_minimal()
+          )
+
+ggdotchart(dfm, x = "name", y = "mpg",
+           color = "cyl",                                # Color by groups
+           palette = c("#00AFBB", "#E7B800", "#FC4E07"), # Custom color palette
+           sorting = "ascending",                        # Sort value in descending order
+           add = "segments",                             # Add segments from y = 0 to dots
+           ggtheme = theme_pubr()                        # ggplot2 theme
+           )
+
+ggdotchart(dfm, x = "name", y = "mpg",
+           color = "cyl",                                # Color by groups
+           palette = c("#00AFBB", "#E7B800", "#FC4E07"), # Custom color palette
+           sorting = "descending",                       # Sort value in descending order
+           add = "segments",                             # Add segments from y = 0 to dots
+           rotate = TRUE,                                # Rotate vertically
+           group = "cyl",                                # Order by groups
+           dot.size = 6,                                 # Large dot size
+           label = round(dfm$mpg),                        # Add mpg values as dot labels
+           font.label = list(color = "white", size = 9, 
+                             vjust = 0.5),               # Adjust label parameters
+           ggtheme = theme_pubr()                        # ggplot2 theme
+           )
+
+ggdotchart(dfm, x = "name", y = "mpg_z",
+           color = "cyl",                                # Color by groups
+           palette = c("#00AFBB", "#E7B800", "#FC4E07"), # Custom color palette
+           sorting = "descending",                       # Sort value in descending order
+           add = "segments",                             # Add segments from y = 0 to dots
+           add.params = list(color = "lightgray", size = 2), # Change segment color and size
+           group = "cyl",                                # Order by groups
+           dot.size = 6,                                 # Large dot size
+           label = round(dfm$mpg_z,1),                        # Add mpg values as dot labels
+           font.label = list(color = "white", size = 9, 
+                             vjust = 0.5),               # Adjust label parameters
+           ggtheme = theme_pubr()                        # ggplot2 theme
+           )+
+  geom_hline(yintercept = 0, linetype = 2, color = "lightgray")
+```
+
+
+### Dot charts
+
+#### Lollipop chart
+
+Lollipop chart is an alternative to bar plots, when you have a large set of values to visualize.
+
+Lollipop chart colored by the grouping variable “cyl”:
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, fig.asp = 0.8, fig.width = 8}
+ggdotchart(dfm, x = "name", y = "mpg",
+           color = "cyl",                                # Color by groups
+           palette = c("#00AFBB", "#E7B800", "#FC4E07"), # Custom color palette
+           sorting = "ascending",                        # Sort value in descending order
+           add = "segments",                             # Add segments from y = 0 to dots
+           ggtheme = theme_pubr()                        # ggplot2 theme
+           )
+```
+
+
+* Sort in decending order. sorting = “descending”.
+
+* Rotate the plot vertically, using rotate = TRUE.
+
+* Sort the mpg value inside each group by using group = “cyl”.
+
+* Set dot.size to 6.
+
+* Add mpg values as label. label = “mpg” or label = round(dfm$mpg).
+
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, fig.asp = 0.8, fig.width = 8}
+ggdotchart(dfm, x = "name", y = "mpg",
+           color = "cyl",                                # Color by groups
+           palette = c("#00AFBB", "#E7B800", "#FC4E07"), # Custom color palette
+           sorting = "descending",                       # Sort value in descending order
+           add = "segments",                             # Add segments from y = 0 to dots
+           rotate = TRUE,                                # Rotate vertically
+           group = "cyl",                                # Order by groups
+           dot.size = 6,                                 # Large dot size
+           label = round(dfm$mpg),                        # Add mpg values as dot labels
+           font.label = list(color = "white", size = 9, 
+                             vjust = 0.5),               # Adjust label parameters
+           ggtheme = theme_pubr()                        # ggplot2 theme
+           )
+```
+
+
+Deviation graph:
+
+Use y = “mpg_z”
+Change segment color and size: add.params = list(color = “lightgray”, size = 2)
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, fig.asp = 0.8, fig.width = 8}
+ggdotchart(dfm, x = "name", y = "mpg_z",
+           color = "cyl",                                # Color by groups
+           palette = c("#00AFBB", "#E7B800", "#FC4E07"), # Custom color palette
+           sorting = "descending",                       # Sort value in descending order
+           add = "segments",                             # Add segments from y = 0 to dots
+           add.params = list(color = "lightgray", size = 2), # Change segment color and size
+           group = "cyl",                                # Order by groups
+           dot.size = 6,                                 # Large dot size
+           label = round(dfm$mpg_z,1),                        # Add mpg values as dot labels
+           font.label = list(color = "white", size = 9, 
+                             vjust = 0.5),               # Adjust label parameters
+           ggtheme = theme_pubr()                        # ggplot2 theme
+           )+
+  geom_hline(yintercept = 0, linetype = 2, color = "lightgray")
+```
+
+
+#### Cleveland’s dot plot
+Color y text by groups. Use y.text.col = TRUE.
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, fig.asp = 0.8, fig.width = 8}
+ggdotchart(dfm, x = "name", y = "mpg",
+           color = "cyl",                                # Color by groups
+           palette = c("#00AFBB", "#E7B800", "#FC4E07"), # Custom color palette
+           sorting = "descending",                       # Sort value in descending order
+           rotate = TRUE,                                # Rotate vertically
+           dot.size = 2,                                 # Large dot size
+           y.text.col = TRUE,                            # Color y text by groups
+           ggtheme = theme_pubr()                        # ggplot2 theme
+           )+
+  theme_cleveland()                                      # Add dashed grids
+```
+
+### RColorBrewer
+
+1. Display color RColorBrewer `display.brewer.all(colorblindFriendly = TRUE) `
+
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE, fig.asp = 0.8, fig.width = 10}
+
+display.brewer.all(colorblindFriendly = TRUE)  
+
+```
+
+### Cheatseat
+
+![](pics/data-visualization.pdf){width=80% height=1000px}
+

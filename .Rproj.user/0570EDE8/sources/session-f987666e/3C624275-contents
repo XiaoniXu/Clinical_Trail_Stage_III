@@ -1,0 +1,502 @@
+---
+knit: (function(inputFile, encoding) { 
+      out_dir <- file.path(getwd());
+      rmarkdown::render(inputFile,
+                        encoding=encoding, 
+                        output_file = file.path(out_dir , 'project_syllabus.html'))})
+title: "Project Syllabus"
+subtitle: "Data Science and Analytics"
+author: |
+  | Author: Xiaoni Xu
+  | [Youtube: N/A]
+  | [Website: N/A]
+  | [Github: https://github.com/XiaoniXu]
+  | [LinkedIn: https://www.linkedin.com/in/xiaoni-xu-275a21172/]
+date: "`r Sys.Date()`"
+toc-title: "Table of Contents"
+output:
+  html_document:
+    include:
+      after_body: after.html
+    self_contained: no
+    toc: yes
+    toc_depth: 4
+    toc_float: true
+    toc_collapsed: true
+    number_sections: false
+    theme: cerulean
+    highlight: zenburn
+    template: toc2.html
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
+indent: yes
+params:
+  github: loankimrobinson
+  author: Loan Robinson
+  email: loankimrobinson@gmail.com
+  twitter: rshiny_with_loan
+  linkedin: loan-robinson-86776994
+  youtube: rshiny_with_loan
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+options(reactable.static = TRUE)
+library(reactable)
+library(reactablefmtr)
+library(htmltools)
+library(dplyr)
+library(fontawesome)
+library(DT)
+library(klippy) # remotes::install_github("rlesur/klippy")
+# renv::settings$snapshot.type("all")
+# renv::snapshot()
+# system.file("rmd/h/default.html", package = "rmarkdown") # https://stackoverflow.com/questions/73268290/rmarkdown-floating-toc-and-toc-at-the-start-of-the-report
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+
+# Add copy to clibboard
+klippy::klippy(
+  lang = c("r", "markdown"),
+  all_precode = TRUE,
+  position = c("top", "right"),
+  color = "white",
+  tooltip_message = "Click to copy",
+  tooltip_success = "Copied!"
+)
+
+tf <- tempfile(fileext = c(".Rmd", ".html"))
+writeLines(
+  c("```{r klippy, echo=FALSE, include=TRUE}",
+    "klippy::klippy()",
+    "```",
+    "Insert this chunk in your `Rmd` file:",
+    "````markdown",
+    "`r ''````{r klippy, echo=FALSE, include=TRUE}",
+    "klippy::klippy()",
+    "```",
+    "````"
+  ),
+  tf[1]
+)
+
+if (FALSE) {
+rmarkdown::render(tf[1], "html_document", tf[2])
+browseURL(paste0("file://", tf[2]))}
+```
+
+```{r setup-footer, include=FALSE}
+# https://stackoverflow.com/questions/71621136/rmarkdown-yaml-section-add-authors-hyperlink-email-to-footer
+knitr::opts_chunk$set(echo = TRUE)
+
+writeLines(
+  sprintf(
+    '&nbsp;
+    <h5 style="text-align: center;color:#465362;"> Thank you for reading </h5>
+    <hr style="height:2px;border-width:0;color:#184558;background-color:#184558">
+    <div class="footer">
+    <p style="text-align: center;">R Shiny with <a href="https://github.com/%s/">%s</a></p>
+    <p style="text-align: center;"><span style="color: #808080;"><em><a href="mailto:%s">%s</a></em></span></p>
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- Add font awesome icons -->
+    <p style="text-align: center;">
+      <a href="https://twitter.com/%s?lang=en" class="fa fa-twitter"></a>
+      <a href="https://www.linkedin.com/in/%s/" class="fa fa-linkedin"></a>
+      <a href="https://github.com/%s/" class="fa fa-github"></a>
+      <a href="https://youtube.com/@%s/" class="fa fa-youtube"></a>
+    </p>
+    </div>
+    &nbsp;',
+    params$github,
+    params$author,
+    params$email,
+    params$email,
+    params$twitter,
+    params$linkedin,
+    params$github,
+    params$youtube
+  ),
+  'after.html'
+)
+```
+
+```{css ref.label="styles", echo=FALSE}
+
+```
+
+```{css ref.label="pkgdown_styles", echo=FALSE}
+```
+
+```{css styles, eval=FALSE, include = FALSE}
+
+#TOC {
+  left: 100px;
+  margin: 10px 0px 25px 0px;
+  border-color: #184558;
+}
+
+.main-container {
+    margin-left: 30px;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    z-index: 2;
+    color: #ffffff;
+    background-color: #9F2B68;
+    border-color: #9F2B68;
+}
+
+.tocify-subheader > .tocify-item { text-indent: initial; padding-left:2em;}
+
+
+/*https://www.w3.org/Style/Examples/007/fonts.en.html*/
+.author {font-size: 15px;font-family: "American Typewriter", serif;color:#9F2B68;}
+.title {font-family: "Apple Chancery", cursive; font-size: 35px;font-weight:bold;}
+.date {font-family: "American Typewriter", serif; font-size: 20px;font-weight:bold;}
+.subtitle {font-family: "American Typewriter", serif; font-size: 20px;font-weight:bold;}
+h3 {font-family: "American Typewriter", serif; font-size: 20px;font-weight:bold;}
+h4 {font-family: "American Typewriter", serif; font-size: 18px;font-weight:bold;}
+h5 {font-family: "American Typewriter", serif; font-size: 18px;font-weight:bold; color:#9F2B68;}
+p {font-family: "American Typewriter", serif;font-size: 14px;}
+
+
+.header {
+  border-bottom-color: #555;
+  font-size: 1.5rem;
+  font-weight: 700;
+  /*text-transform: uppercase;*/
+  color:#465362; 
+}
+/* Highlight headers when sorting */
+.header:hover,
+.header:focus,
+.header[aria-sort="ascending"],
+.header[aria-sort="descending"] {
+  background-color: #eee;
+}
+
+.manufacturer {
+  display: flex;
+  align-items: center;
+}
+.manufacturer-logo {
+  height: 2rem;
+  width: 4rem;
+  border: 1px solid #f0f0f0;
+}
+.manufacturer-name {
+  margin-left: 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color:#465362; 
+}
+.manufacturer-origin {
+  margin-left: 0.35rem;
+  color: hsl(0, 0%, 45%);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+a {color:#9F2B68;font-weight:normal}
+
+body, td {
+   font-size: 14px;
+}
+code.r{
+  font-size: 16px;
+}
+pre {
+  font-size: 16px
+}
+
+```
+
+```{css pkgdown_styles, include=FALSE}
+
+/* pkgdown articles */
+.row > main {
+  max-width: 1800px;
+}
+.page-header {
+  display: none;
+}
+/* rmarkdown html documents */
+.main-container {
+  max-width: 1600px !important;
+  margin-left: 80px;
+  margin-right: 80px;
+  color:#184558;
+  font-family: "American Typewriter", serif; 
+  font-size: 15px;
+}
+```
+
+### Learning Objectives
+
+Upon successful completion of this course, the mentee will be able to:
+
+<ul>
+
+L1: Installation
+
+-   Install R, Rstudio, R Shiny, Python, Jupyter Notebook, Git
+
+-   Install R packages, Python libraries,
+
+L2: Version Control (Git)
+
+-   Create the projects using Version Control (Git).
+
+-   Collaborate and work together with mentor on GitHub.
+
+-   Master Git CLI
+
+L3: Deploying and Publishing
+
+-   Deploying R Shiny Application on <https://www.shinyapps.io>
+
+-   Publishing Rmarkdown document on <https://rpubs.com>
+
+L4: Programmatically interact with data in R and Python
+
+-   Extract, transform and load data (ETL)
+
+-   Data Visualization
+
+-   Data Transformation
+
+-   Exploratory Data Analysis
+
+-   Projects Workflow
+
+-   Statistical Modelling
+
+-   Writing Rmarkdown for report
+
+L5: Demonstrate proficiency by using libraries and writing functions
+
+-   Writing R Script functions
+
+-   Building a simple dashboard using R shiny library
+
+-   Learning the most popular packages, which use in BioTech Company
+
+L6: Understanding the observation data and clinical trial data in health care industry
+
+-   Understanding what is observation data
+
+-   Analyzing observation data
+
+-   Exploratory Study for observation data
+
+-   Understanding what is Clinical Study
+
+-   Who Conducts Clinical Studies?
+
+-   Where Are Clinical Studies Conducted?
+
+-   How Long Do Clinical Studies Last?
+
+-   Reasons for Conducting Clinical Studies
+
+L7: Create dashboards and data visualizations in order to produce actionable insights
+
+<ul>![](pics/app1.png){width="40%"}</ul>
+
+<br>
+
+<br>
+
+<ul>![](pics/app2.png){width="40%"}</ul>
+
+</ul>
+
+### Resources
+
+<ul>
+
+1.  R book <https://r4ds.had.co.nz/>
+
+2.  Learning Git <https://skills.github.com/>
+
+3.  <https://levelup.gitconnected.com/top-30-git-commands-you-should-know-to-master-git-cli-f04e041779bc>
+
+4.  R package Plotly for visualization <https://plotly.com/r/>
+
+5.  Materials from mentor <https://rpubs.com/LoanRobinson>
+
+6.  <https://classic.clinicaltrials.gov/ct2/resources/download#DownloadStudy>
+
+<ul>
+
+-   Condition or disease: Retrograde Amnesia
+
+-   Intervention/treatment : Diagnostic Test: German Autobiographical Memory Interview short-form
+
+-   <https://classic.clinicaltrials.gov/ct2/show/NCT04516863?cond=%22Amnesia%2C+Retrograde%22&draw=2&rank=1>
+
+</ul>
+
+</ul>
+
+### Homework Assignments
+
+Each of the homework assignments builds upon the knowledge obtained from the previous lectures. Homework assignments prepare mentee for the final project and solidify their understanding of the material presented.
+
+-   Complete the required readings.
+
+-   Complete the questions mentor assigns.
+
+### Final Project
+
+Evaluation the efficacy of the treatment drug compared to placebo in subjects with major depressive disorder who have on inadequate response to antidepressant therapy.
+
+-   Mentee will present the final project with a dashboard.
+
+-   Mentee will walk through the project with her solid knowledge.
+
+### Project Schedule {.tabset}
+
+<br>
+
+#### Introduction
+
+<ul>
+
+-   Welcome meeting.
+
+-   Sending out the list to do "Installation.html".
+
+-   Meeting and helping mentee with installation.
+
+</ul>
+
+#### Week 1
+
+<ul>
+
+-   Going through the syllabus.
+
+-   Focusing on R programming.
+
+-   Practicing deploying and publishing documents.
+
+-   Learning writing document with R markdown.
+
+-   Learning using Github.
+
+-   Sending materials we just learned and homework assignments next day and due before next session.
+
+</ul>
+
+#### Week 2
+
+<ul>
+
+-   Introduction about Clinical Trials Study in the United States.
+
+-   Introduction about the drug we are going to study for this project.
+
+-   What are Primary Objective and Primary Endpoint?
+
+-   What is the goal we want to achieve?
+
+-   Using R for data wrangling.
+
+-   Using Git during the session, at this time mentee should know how to commit, push and pull.
+
+-   Sending materials we just learned and homework assignments next day and due before next session.
+
+</ul>
+
+#### Week 3
+
+<ul>
+
+-   Hand on Clinical Trials DATA.
+
+-   Understanding `adsl`, `adae`, `adcm` and `adqhamd` dataset.
+
+-   Data Visualization.
+
+-   Data Transformation.
+
+-   Exploratory Data Analysis.
+
+-   Projects Workflow for final Project.
+
+-   Sending materials we just learned and homework assignments next day and due before next session.
+
+</ul>
+
+#### Week 4
+
+<ul>
+
+-   Learning R Shiny App.
+
+-   Writing R Function.
+
+-   List of user inputs and outputs for dashboard.
+
+-   Applying Exploratory Data Analysis to our data.
+
+-   Sending materials we just learned and homework assignments next day and due before next session.
+
+</ul>
+
+#### Week 5
+
+<ul>
+
+-   Learning Python.
+
+-   Connecting Database with R and Python.
+
+-   Create a simple R shiny app.
+
+-   Create plots and tables for Dashboard.
+
+-   Sending materials we just learned and homework assignments next day and due before next session.
+
+#### Week 6
+
+<ul>
+
+-   Understanding the repeat measurement statistical method.
+
+-   Learning Observation Data and Statistical Analysis.
+
+-   Building the first tab for Dashboard.
+
+-   Sending materials we just learned and homework assignments next day and due before next session.
+
+</ul>
+
+#### Week 7
+
+<ul>
+
+-   You are able to write a report the evaluation the efficacy of the treatment drug compared to placebo in subjects with major depressive disorder who have on inadequate response to antidepressant therapy.
+
+-   Complete the dashboard at least 2 tabs ( Demographic and Adverse Event).
+
+-   No homework assignments.
+
+</ul>
+
+#### Week 8
+
+<ul>
+
+-   Presentation and demo Dashboard.
+
+-   Feedback from mentor, mentee and Vincent.
+
+</ul>
+
+####  {.unnumbered}
